@@ -1,0 +1,44 @@
+.words-home--tabs.ant-tabs{
+    height: 100%;
+    overflow: hidden;
+    // tabs 的 border-bottom 样式
+    & >.ant-tabs-nav::before{
+        border-bottom: 1px solid var(--color-primary-dark-2);
+    }
+
+    // collapse 的 border-bottom 样式
+    .ant-collapse-borderless >.ant-collapse-item{
+        border-bottom: 1px solid var(--color-primary-dark-2);
+    }
+    .ant-tabs-ink-bar.ant-tabs-ink-bar-animated{
+        background-color: var(--background-color-light);
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+        color:  var(--background-color-light);
+    }
+    .ant-tabs-tab .ant-tabs-tab-btn{
+        color: #ffffff;
+        &:hover{
+            color: var(--background-color-light);
+        }
+    }
+    .ant-tabs-content-holder{
+        overflow: overlay;
+        text-align: left;
+        .words-explain{
+            margin: 0px;
+            width: 90%;
+        }
+    }
+    .ant-collapse {
+        .ant-collapse-content {
+            background-color: inherit;
+            color: var(--text-color-primary)
+        }
+        .ant-collapse-item >.ant-collapse-header{
+            color: var(--text-color-primary)
+        }
+    }
+
+    
+}

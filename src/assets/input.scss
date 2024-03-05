@@ -1,0 +1,36 @@
+.search-words{
+    position: relative;
+    .search-words--input{
+        padding: 5px 15px;
+        border: 2px solid #324B4E;
+        width: 45%;
+        height: calc(25 / 16 * 1rem);
+        font-size: calc(20 / 16 * 1rem);
+        color: rgba(0,0,0,.7);
+        border-radius: calc(42 / 16 * 1rem);
+        transition:.2s linear;
+        caret-color: var(--background-color-dark);
+        &:focus-visible{
+            outline: none;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        }
+        &:placeholder-shown {
+            color: rgba(0,0,0,0.58);
+            font-size: 1rem;
+            line-height: calc(40 / 16 * 1rem);
+        }
+    }
+    &--icon{
+        width: calc(36 / 16 * 1rem);
+        display: inline-block;
+        height: calc(36 / 16 * 1rem);
+        position: absolute;
+        margin-left: calc(-40 / 16 * 1rem);
+        border-radius: calc(42 / 16 * 1rem);
+        line-height: 2.85rem;
+        padding-right: calc(10 / 16 * 1rem);
+        cursor: pointer;
+
+        top: 2px;
+    }
+}
