@@ -1,0 +1,108 @@
+.home-cards--wrapper{
+    height: 28rem;
+    width: 18rem;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    border-radius: var(--border-radius);
+    margin: auto;
+
+    position: relative;
+
+    .words-home--cards{
+        text-align: center;
+        width: 18rem;
+        height: 28rem;
+        padding: 10px;
+        background-color: var(--background-color-light);
+        box-sizing: border-box;
+        border-radius: var(--border-radius);
+        outline: 1rem solid var(--background-color-dark);
+
+        
+
+        text-wrap: wrap;
+        position: absolute;
+        transition:transform .3s ease-out;
+
+        .words-home--cards__title{
+            font-size: var(--title-font-size);
+            margin-bottom: 20px;
+        }
+        .words-home--cards__phonetic{
+            margin-bottom: 20px;
+        }
+
+        .words-home--cards__content{
+            text-align: left;
+            font-size: 0.9rem;
+            .words-home--cardexplain{
+                line-height: 1.2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+                cursor: pointer;
+            }
+            .words-home--cardexplain:not(:first-child){
+                margin-top:5px;
+            }
+            .words-home-note{
+                margin-top: 1rem;
+                font-size: 1rem;
+                p {
+                    margin-top: 0px;
+                }
+            }
+
+        }
+        .words-home--cardshow{
+            color: var(--background-color-dark);
+            cursor: pointer;
+        }
+    }
+}
+
+.home-cards--page{
+    text-align: center;
+}
+
+.audio{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    i{
+        opacity: 0.6;
+    }
+    audio {
+        width: 0px;
+        height: 0px;
+    }
+    .word-home--cards__image{
+        background-image: url("./image/speaker-all.png");
+        width: calc(13rem / 16);
+        height: calc(13rem / 16);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 0 0;
+        cursor: pointer;
+    }
+
+    .speaker-play{
+        animation:  audio-play 1s infinite step-start;
+    }
+
+    @keyframes audio-play{
+        0%{
+            background-position:0 0rem;
+        }
+        30%{
+            background-position: 0 -0.8rem;
+        }
+        60%{
+            background-position: 0 -1.6rem;
+        }
+        100%{
+            background-position: 0 -2.38rem;
+        }
+        
+    }
+}

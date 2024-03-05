@@ -1,0 +1,26 @@
+.words-explain{
+    width: 50%;
+    margin:auto;
+    box-sizing: border-box;
+    margin-top: 2rem;
+    overflow: auto;
+    text-wrap: wrap;
+    text-align: left;
+    height: 90%;
+    h4{
+        margin-top: 1rem;
+        margin-bottom: 0.1rem
+    }
+    .words-explain--webphrase{
+        margin-bottom: 0.2rem;
+        font-size: calc(14 / 16 * 1rem);
+    }
+    .words-explain--unit{
+        display: flex;
+        justify-content: space-between;
+        .word-home--cards__image {
+            margin-left: 1rem;
+        }
+
+    }
+}

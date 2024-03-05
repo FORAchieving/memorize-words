@@ -1,0 +1,123 @@
+body, html{
+    height: 100%;
+    margin: 0px;
+    #app{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+
+.words-home{
+    width: 60%;
+    height: 70%;
+    border: 1px solid  var(--border-color-light);
+    border-radius: var(--border-radius);
+    background-color: var(--background-color-dark);
+    box-sizing: border-box;
+    text-align: center;
+
+    padding:5%;
+    position: relative;
+    z-index: 0;
+    .words-name--nav{
+        position: absolute;
+        left: 0px;
+        top: 20px;
+        width: 100px;
+        padding: 5px 5px 5px 0px;
+        .words-name--button{
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: var(--background-color-light);
+            border-color: var(--border-color-dark);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+            cursor: pointer;
+            &:not(:first-child){
+                margin-top: 15px;
+            }
+        }
+    }
+    .words-home--icon{
+        position: relative;
+        p{
+            position: absolute;
+            right: 0;
+            top: 0.5rem;
+            .icon{
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+            .icon:first-child{
+                margin-right: 1.5rem;
+            }        
+        }
+        .words-name--favorite{
+            color: var(--text-color-primary)
+        }
+
+    }
+}
+
+.ant-modal-content{
+    .ant-modal-body{
+        .words-home--word{
+            label{
+                margin-right: 3rem;
+            }
+            input{
+                height: 2.2rem;
+                width: 12rem;
+                font-size: calc(18 / 16 * 1rem);
+                padding: 0px 0.4rem;
+                border-radius: 0.5rem;
+                border: 1px solid #d9d9d9;
+            }
+        }
+        .words-home--exercisebook{
+            label{
+                margin-right: 3rem;
+            }
+            margin-top: 1rem;
+        }
+        .words-home--remark {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-top: 1rem;
+            textarea{
+                width: 80%;
+                resize: none;
+                margin-left: 3rem;
+                font-size: 1rem;
+                padding: 7px 6px;
+                border-color: #d9d9d9;
+                border-radius: 0.4rem;
+                &:focus,&:active,&:focus-visible{
+                    border-color: var(--background-color-dark);
+                    outline-color: var(--background-color-dark);
+                }
+            }
+        }
+    }
+
+}
+
+.ant-btn.ant-btn-primary{
+    background-color: var(--background-color-dark);
+    &:not(:disabled):not(.ant-btn-disabled):hover{
+        background-color: var(--background-color-light);
+    }
+}
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover{
+    color: var(--background-color-dark);
+    border-color: var(--background-color-dark)
+}
+   

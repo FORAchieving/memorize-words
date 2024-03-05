@@ -1,0 +1,41 @@
+
+.words-home--select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer){
+        &:hover, &:focus, &:active, &:focus-visible{
+            .ant-select-selector{
+                border-color: var(--background-color-dark);
+                box-shadow: var(--background-color-light) 0px 0.1px 0.1px, var(--background-color-light) 0px 0px 0px 0.1px;
+            }
+        }
+        &.ant-select-focused .ant-select-selector,
+        .ant-select-selector:focus,
+        .ant-select-selector:active{
+            border-color: var(--background-color-dark);
+            box-shadow: var(--background-color-light) 0px 0.1px 0.1px, var(--background-color-light) 0px 0px 0px 0.1px;
+
+        }
+        .ant-select-selector .ant-select-selection-item .words-home-option{
+            .anticon{
+                display: none;
+            }
+        }
+    }
+    
+.words-home--select-popup .ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+    background-color: var(--background-color-light);
+}
+
+.ant-select-dropdown.words-home--select-popup{
+    .search-words--input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1.3rem 1rem;
+        font-size: 0.8rem;
+    }
+    .ant-select-item-option-content{
+        .words-home-option{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
