@@ -8,6 +8,6 @@ Memorizing words on the computer. Although there's a lot of App can do, I just w
 4. Carousel display of words.
 
 # Next plan
-1 Uniform color scheme.
-2 Change storage way to Node.
-3 Add test unit.
+1.Uniform color scheme.
+2.Change storage way to Node.
+3.Add test unit.
