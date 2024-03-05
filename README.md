@@ -1,6 +1,9 @@
 # memorize-words
 Memorizing words on the computer. Although there's a lot of App can do, I just want to memorize word in my way.
 
+# Tech stack
+React 18 + TS
+
 # function
 1. Search a word.
 2. Favorite a sentence.
