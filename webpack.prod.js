@@ -42,7 +42,7 @@ module.exports = merge(common, {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].[fullhash:8].js',
-        publicPath: '/', // 资源获取的目录
+        publicPath: '.', // 资源获取的目录
     },
     optimization: {
         minimize: false,

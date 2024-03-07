@@ -3,15 +3,19 @@ import  Space  from "antd/es/space/index";
 import  Divider  from "antd/es/divider/index";
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 import Input  from './Input';
-import React, { useState,useRef } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import {v4} from 'uuid';
 import { useStorage } from '../hooks/useStorage';
 import type { Group } from '../hooks/storage.type';
 
 export default function SelectComponent({optionValue, onChange}:{optionValue?: string, onChange?: (value: string) => void}){
-    const [value, setValue] = useState<string|undefined>(optionValue?optionValue:undefined);
+    const [value, setValue] = useState<string|undefined>(undefined);
     const [curOption, setCurOption] = useState<string>('');
     const [items, updater] = useStorage<Group>(localStorage)('dictionaryGroup',[]);
+
+    useEffect(()=> {
+        setValue(optionValue?optionValue:undefined)
+    }, [optionValue])
 
     function handleKeydown(e:React.KeyboardEvent) {
         const groupValue = (e.target as HTMLInputElement).value;

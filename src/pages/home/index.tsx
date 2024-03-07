@@ -4,16 +4,19 @@ import type { FavoriteWord, FavoriteSentence } from './type';
 
 import StarOutlined from '@ant-design/icons/StarOutlined'
 import StarFilled from '@ant-design/icons/StarFilled'
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import Modal from "antd/es/modal/Modal"
+import ManualModal from "antd/lib/modal/index"
 import Explain from "./explain"
 import Input from "../../components/Input"
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import SelectComponent from "../../components/Select"
 import { Link } from "react-router-dom";
 import http from "../../utils/axios";
 import CryptoJS from 'crypto-js';
 import {v4} from 'uuid';
 import { useStorage } from "../../hooks/useStorage";
+import React from 'react';
 
 
 export default function Home() {
@@ -24,7 +27,7 @@ export default function Home() {
     const [wordExplain, setWordExplain] = useState<CardProps>();
     const [textareaValue, setTextareaValue] = useState<string>();
     const [isFavoriteWord, setIsFavoriteWord] = useState<boolean>()
-    const optionValue = useRef<string>()
+    const [optionValue, setOptionValue] = useState<string>()
     const input = useRef<string>()
     function handleInputChange(val:string) {
         if (!val) {
@@ -39,6 +42,9 @@ export default function Home() {
     }
     async function onSearch(query: string) {
         if (!query) return
+        setIsFavoriteWord(false);
+        // setFavoriteStatus()
+
         input.current = query.trim();
         setLoading(true)
         const salt = v4();
@@ -61,35 +67,67 @@ export default function Home() {
         })
         setLoading(false);
         setWordExplain(result);
-        const word= favoritesList.filter(item => {return item.query === q});
+        setFavoriteStatus();
+    }
+    function setFavoriteStatus(reset=false) {
+        if (reset) {
+            setTextareaValue('');
+            setOptionValue('');
+            return;
+        }
+        if (!input.current) return;
+        const word= favoritesList.filter(item => {return item.query === truncate(input.current!)});
         if (word.length) {
             setIsFavoriteWord(true);
             setTextareaValue(word[0].textareaValue);
-            optionValue.current = word[0].groupId;
+            setOptionValue(word[0].groupId)
+        } else {
+            setTextareaValue('');
+            setOptionValue('')
         }
     }
+
+    useEffect(() => {
+        isModalOpen ? setFavoriteStatus() : setFavoriteStatus(true)
+    }, [isModalOpen])
     function handleOk(event: React.MouseEvent) {
         setIsModalOpen(false);
         event.stopPropagation();
-        if (isFavoriteWord) {
-            setIsFavoriteWord(false)
-            const cancelIndex = favoritesList.findIndex(item => {return item.query === input.current});
-            cancelIndex !== -1 && favoritesList.splice(cancelIndex, 1);
-            updator(favoritesList)
-        } else {
+        // if (isFavoriteWord) {
+        //     setIsFavoriteWord(false)
+        //     const cancelIndex = favoritesList.findIndex(item => {return item.query === input.current});
+        //     cancelIndex !== -1 && favoritesList.splice(cancelIndex, 1);
+        //     updator(favoritesList)
+        // } else {
             setIsFavoriteWord(true)
             if (wordExplain!.isWord) {
-                updator([{basic: wordExplain!.basic,isWord:wordExplain!.isWord, web: wordExplain!.web, query: truncate(input.current!), textareaValue: textareaValue!, groupId: optionValue.current!, id: v4()}, ...favoritesList])
+                updator([{basic: wordExplain!.basic,isWord:wordExplain!.isWord, web: wordExplain!.web, query: truncate(input.current!), textareaValue: textareaValue!, groupId: optionValue!, id: v4()}, ...favoritesList])
             } else {
                 updatorSentence([{isWord:wordExplain!.isWord, query: truncate(input.current!), textareaValue: textareaValue!, id: v4()}, ...favoritesSentence])
             }
-        }
+        // }
     }
     function handleCancel(event: React.MouseEvent) {
         setIsModalOpen(false)
     }
     function handleStarClick(event: React.MouseEvent) {
         setIsModalOpen(true)
+    }
+
+    function handleCancelFav() {
+        const cancelFav = () => {
+            setIsFavoriteWord(false)
+            const cancelIndex = favoritesList.findIndex(item => {return item.query === truncate(input.current!)});
+            console.log('cancelIndex: ', cancelIndex);
+            cancelIndex !== -1 && favoritesList.splice(cancelIndex, 1);
+            updator(favoritesList)
+        }
+        ManualModal.confirm({
+            title: '收藏',
+            content: "取消收藏？",
+            centered: true,
+            onOk: cancelFav
+        })
     }
 
     return (
@@ -105,7 +143,12 @@ export default function Home() {
                 {
                     wordExplain && <p>
                         {
-                            isFavoriteWord ? <StarFilled style={{color: '#FFFFF3'}}  className='icon' onClick={handleStarClick}/> : <StarOutlined className='icon' onClick={handleStarClick}/>
+                            isFavoriteWord ? (
+                                <>
+                                    <StarFilled style={{color: '#FFFFF3'}}  className='icon' onClick={handleCancelFav}/> 
+                                    <EditOutlined className='icon' onClick={() => setIsModalOpen(true)}/>
+                                </>
+                            ): <StarOutlined className='icon' onClick={handleStarClick}/>
                         }
                         </p>
                 }
@@ -113,14 +156,14 @@ export default function Home() {
             {
                 (wordExplain && (wordExplain.isWord ? <Explain info={wordExplain.basic} web={wordExplain.web}></Explain> : <p>没有这个单词～如果是短语，你可以收藏～</p>))
             }
-            <Modal title="收藏" okText={isFavoriteWord ? '取消收藏':'确定'} centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="收藏" okText={'确定'} centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className="words-home--word">
                     <label>单词</label>
                     <input type="text" disabled value={input.current}/>
                 </div>
                 <div className="words-home--exercisebook">
                     <label>分组</label>
-                    <SelectComponent optionValue={optionValue.current} onChange={(value:string) => optionValue.current = value}/>
+                    <SelectComponent optionValue={optionValue} onChange={(value:string) => setOptionValue(value)}/>
                 </div>
                 <div className="words-home--remark">
                     <label>备注</label>
