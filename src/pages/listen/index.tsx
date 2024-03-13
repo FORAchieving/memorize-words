@@ -12,7 +12,6 @@ export default function Card() {
     const allType = '1';
     const type = id === allType ? 'favorites': 'dictionaryGroup';
     let [list] = useStorage<FavoriteWord>(localStorage)(type, []);
-    console.log('listq: ', list);
 
     if (type == 'dictionaryGroup') {
         const [words] = useStorage<FavoriteWord>(localStorage)("favorites", []);
